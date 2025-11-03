@@ -13,6 +13,9 @@ public class Organization {
 
     private String name;
 
+
+    private long parentId;
+
     public long getId() {
         return id;
     }
@@ -27,5 +30,13 @@ public class Organization {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
     }
 }
