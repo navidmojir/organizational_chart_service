@@ -1,7 +1,9 @@
 package ir.mojir.organizational_chart_service.rest_controllers;
 
+import ir.mojir.my_kc_auth_client.annotations.AllowedRoles;
 import ir.mojir.organizational_chart_service.dtos.organization.*;
 import ir.mojir.organizational_chart_service.entities.Organization;
+import ir.mojir.organizational_chart_service.enums.UserRole;
 import ir.mojir.organizational_chart_service.services.OrganizationService;
 import ir.mojir.spring_boot_commons.dtos.SearchDto;
 import ir.mojir.spring_boot_commons.helpers.PersianCharNormalizer;
@@ -27,6 +29,7 @@ public class OrganizationController {
     private ModelMapper mapper;
 
     @PostMapping
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
     public CreateOrganizationResp create(@Valid @RequestBody CreateOrganizationReq req)
     {
         new PersianCharNormalizer().normalize(req);
@@ -35,6 +38,7 @@ public class OrganizationController {
     }
 
     @GetMapping("/{id}")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
     public GetOrganizationResp get(@PathVariable long id)
     {
         Organization entity = organizationService.get(id);
@@ -42,6 +46,7 @@ public class OrganizationController {
     }
 
     @PutMapping("/{id}")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
     public UpdateOrganizationResp update(@PathVariable long id, @Valid @RequestBody UpdateOrganizationReq req)
     {
         new PersianCharNormalizer().normalize(req);
@@ -50,12 +55,14 @@ public class OrganizationController {
     }
 
     @DeleteMapping("/{id}")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
     public void delete(@PathVariable long id) {
         organizationService.delete(id);
     }
 
 
     @PostMapping("/search")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
     public ResponseEntity<List<SearchOrganizationRespRow>> search(@Valid @RequestBody SearchDto<OrganizationSearchFilter> req)
     {
         new PersianCharNormalizer().normalize(req.getFilters());
