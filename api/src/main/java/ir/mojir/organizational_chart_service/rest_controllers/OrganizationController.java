@@ -73,4 +73,15 @@ public class OrganizationController {
                         .collect(Collectors.toList()));
     }
 
+    @GetMapping("/children/{parentId}")
+    public List<ListRootOrganizationRespRow> getChildren(@PathVariable long parentId) {
+        List<Organization> rootOrgs = organizationService.getOrganizations(parentId);
+        return rootOrgs.stream().map((org) -> {
+            ListRootOrganizationRespRow row = mapper.map(org, ListRootOrganizationRespRow.class);
+            row.setHasChildren(organizationService.hasChildren(org.getId()));
+            return row;
+        }).collect(Collectors.toList());
+
+    }
+
 }

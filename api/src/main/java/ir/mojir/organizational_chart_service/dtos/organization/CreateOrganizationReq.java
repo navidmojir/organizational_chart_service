@@ -4,13 +4,18 @@ import ir.mojir.spring_boot_commons.helpers.RegexHelper;
 import jakarta.validation.constraints.Pattern;
 import ir.mojir.spring_boot_commons.annotations.PersianNormalized;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 public class CreateOrganizationReq {
     @PersianNormalized
     @Pattern(regexp = RegexHelper.persianFieldRegex, message = RegexHelper.persianFieldRegexMessageFa)
     private String name;
 
-    @Positive
+    @PersianNormalized
+    @Pattern(regexp = RegexHelper.persianLongTextRegex, message = RegexHelper.persianLongTextRegexMessageFa)
+    private String description;
+
+    @PositiveOrZero
     private long parentId;
 
     public String getName() {
@@ -27,5 +32,13 @@ public class CreateOrganizationReq {
 
     public void setParentId(long parentId) {
         this.parentId = parentId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

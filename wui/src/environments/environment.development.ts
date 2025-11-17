@@ -4,5 +4,6 @@ export const environment = {
             realm: "cbi",
             clientId: "ocs-wui",
             resourceServersClientIds: ["ocs-api"]
-        }
+        },
+        backendBaseUrl: "http://localhost:8082"
     };

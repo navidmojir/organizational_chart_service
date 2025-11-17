@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrganizationTree } from './organization-tree';
+import { OrgChart } from './org-chart';
 
-describe('OrganizationTree', () => {
-  let component: OrganizationTree;
-  let fixture: ComponentFixture<OrganizationTree>;
+describe('OrgChart', () => {
+  let component: OrgChart;
+  let fixture: ComponentFixture<OrgChart>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OrganizationTree]
+      imports: [OrgChart]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OrganizationTree);
+    fixture = TestBed.createComponent(OrgChart);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

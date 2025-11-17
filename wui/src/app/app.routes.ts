@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from 'my-angular-commons2';
-import { OrganizationTree } from './components/organization-tree/organization-tree';
+import { OrgChart } from './components/org-chart/org-chart';
 
 export const routes: Routes = [
     {
         path: '**',
-        component: OrganizationTree,
+        component: OrgChart,
 		canActivate: [AuthGuard]
     }
 ];

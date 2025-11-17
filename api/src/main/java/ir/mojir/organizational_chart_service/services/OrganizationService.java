@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,14 +33,23 @@ public class OrganizationService {
     @Transactional
     public Organization create(CreateOrganizationReq req)
     {
+        validateParentId(req.getParentId());
         Organization entity = new Organization();
         entity.setName(req.getName());
+        entity.setDescription(req.getDescription());
+        entity.setParentId(req.getParentId());
 
         Organization savedEntity = organizationRepo.save(entity);
 
         logger.info("A organization with id {} was created.", savedEntity.getId());
 
         return savedEntity;
+    }
+
+    private void validateParentId(long parentId) {
+        if(parentId == 0)
+            return;
+        findById(parentId);
     }
 
     public Organization get(long id) {
@@ -72,5 +82,21 @@ public class OrganizationService {
     public Page<Organization> search(SearchDto<OrganizationSearchFilter> req) {
         logger.info(("Searching for organization"));
         return organizationRepoCustom.search(req);
+    }
+
+    public List<Organization> getOrganizations(long parentId) {
+        logger.info("Getting root organizations");
+        return organizationRepo.findAllByParentId(parentId);
+    }
+
+    public List<Organization> getChildren(long id) {
+        return organizationRepo.findAllByParentId(id);
+    }
+
+    public boolean hasChildren(long id) {
+        List<Organization> children = getChildren(id);
+        if(children != null && children.size() > 0)
+            return true;
+        return false;
     }
 }

@@ -1,20 +1,10 @@
-package ir.mojir.organizational_chart_service.entities;
+package ir.mojir.organizational_chart_service.dtos.organization;
 
-import jakarta.persistence.*;
-
-@Entity
-public class Organization {
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Id
+public class ListRootOrganizationRespRow {
     private long id;
-
     private String name;
-
-    @Lob
     private String description;
-
-
-    private long parentId;
+    private boolean hasChildren;
 
     public long getId() {
         return id;
@@ -32,19 +22,19 @@ public class Organization {
         this.name = name;
     }
 
-    public long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(long parentId) {
-        this.parentId = parentId;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isHasChildren() {
+        return hasChildren;
+    }
+
+    public void setHasChildren(boolean hasChildren) {
+        this.hasChildren = hasChildren;
     }
 }
