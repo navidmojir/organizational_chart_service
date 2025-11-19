@@ -1,3 +1,76 @@
-.example-tree-progress-bar {
-  margin-left: 30px;
+.tree {
+  width: 100%;
+  font-family: Vazirmatn, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  direction: rtl;
+}
+
+.tree-node {
+  margin: 4px 0;
+}
+
+/* Label appearance */
+.node-label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.node-label:hover {
+  background: #e8e8e8;
+}
+
+.icon {
+  width: 20px;
+  text-align: center;
+}
+
+/* Leaf nodes */
+.leaf {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 34px;
+  border-radius: 6px;
+}
+
+.leaf:hover {
+  background: #f1f1f1;
+}
+
+/* Hidden checkbox */
+.tree-node input[type="checkbox"] {
+  display: none;
+}
+
+/* Children container */
+.children {
+  max-height: 0;
+  overflow: hidden;
+  margin-right: 28px; /* RTL indentation */
+  border-right: 2px solid #dcdcdc;
+  padding-right: 10px;
+  transition: max-height 0.3s ease-out;
+}
+
+/* Expand children */
+.tree-node input[type="checkbox"]:checked ~ .children {
+  max-height: 500px;
+}
+
+/* Expand arrow */
+.tree-node input[type="checkbox"] + .node-label::before {
+  content: "▸";
+  margin-left: 6px;
+  font-size: 13px;
+  transition: transform 0.3s;
+}
+
+.tree-node input[type="checkbox"]:checked + .node-label::before {
+  transform: rotate(90deg);
 }

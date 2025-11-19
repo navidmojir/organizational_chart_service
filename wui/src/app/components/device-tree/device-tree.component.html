@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="header">
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        class="search" 
+        placeholder="جستجو" 
+        [(ngModel)]="searchQuery">
+    </div>
+    <h1>درخت سازمانی</h1>
+  </div>
+
+  <div class="main">
+    <div class="tree-container">
+      <div 
+        *ngFor="let categoryEntry of getDeviceTreeEntries()" 
+        class="tree-node">
+        <div 
+          class="tree-header" 
+          [class.expanded]="isCategoryExpanded(categoryEntry.category)"
+          (click)="toggleCategory(categoryEntry.category)">
+          <span class="node-count">{{ countDevicesInCategory(categoryEntry.locations) }}</span>
+          <span class="node-name">{{ categoryEntry.category }}</span>
+          <span class="node-icon">⚙️</span>
+          <span class="toggle-icon">◀</span>
+        </div>
+        
+        <div 
+          class="tree-content" 
+          [class.expanded]="isCategoryExpanded(categoryEntry.category)">
+          <div 
+            *ngFor="let locationEntry of getLocationEntries(categoryEntry.locations)" 
+            class="tree-node">
+            <div 
+              class="tree-header" 
+              [class.expanded]="isLocationExpanded(categoryEntry.category, locationEntry.locationName)"
+              (click)="toggleLocation(categoryEntry.category + '-' + locationEntry.locationName)">
+              <span class="node-count">{{ locationEntry.devices.length }}</span>
+              <span class="node-name">{{ locationEntry.locationName }}</span>
+              <span class="node-icon">📍</span>
+              <span class="toggle-icon">◀</span>
+            </div>
+            
+            <div 
+              class="tree-content" 
+              [class.expanded]="isLocationExpanded(categoryEntry.category, locationEntry.locationName)">
+              <ng-container *ngFor="let device of locationEntry.devices">
+                <div                   
+                  class="device-item" 
+                  [class.active]="isDeviceActive(device.id)"
+                  (click)="onDeviceClick(device, categoryEntry.category, locationEntry.locationName)">
+                  <span class="device-name">{{ device.name }}</span>
+                  <span class="device-icon">⚙️</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div 
+  class="notification" 
+  [class.show]="true">
+  {{ notificationMessage || 'وضعیت دستگاه بروزرسانی شد' }}
+</div>
+

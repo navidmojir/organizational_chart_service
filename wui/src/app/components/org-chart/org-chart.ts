@@ -19,7 +19,7 @@ export interface TreeNode {
 @Component({
   selector: 'app-org-chart',
   templateUrl: 'org-chart.html',
-  imports: [MatTreeModule, MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule],
 })
 export class OrgChart {
 
