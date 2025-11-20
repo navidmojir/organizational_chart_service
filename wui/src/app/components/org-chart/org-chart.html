@@ -9,20 +9,27 @@
   </div>
   <div class="main">
     <div class="tree-container">
-      <div class="tree-node" *ngFor="let node of dataSource">
-        <div class="tree-header" [class.expanded]="node.expanded" (click)="toggleNode(node)">
-          <span class="node-name">{{ node.name }}</span>
-          <span class="toggle-icon">◀</span>
-        </div>
-        <div class="tree-content" *ngIf="node.children?.length">
-          <div class="tree-node" *ngFor="let child of node.children">
-            <div class="tree-header" [class.expanded]="child.expanded" (click)="toggleNode(child)">
-              <span class="node-name">{{ child.name }}</span>
-              <span class="toggle-icon">◀</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ng-container *ngFor="let node of dataSource">
+        <ng-container *ngTemplateOutlet="treeNodeTemplate; context: {$implicit: node}"></ng-container>
+      </ng-container>
     </div> 
   </div>
 </div>
+
+<ng-template #treeNodeTemplate let-node>
+  <div class="tree-node">
+    <div class="tree-header" [class.expanded]="node.expanded" [class.active]="node.active" (click)="selectNode(node, $event)">
+      <span class="node-name" (click)="selectNode(node, $event)">{{ node.name }}</span>
+      @if(node.hasChildren) {
+      <span class="toggle-icon" [class.expanded]="node.expanded" (click)="toggleNode(node, $event)">◀</span>
+      } @else {
+        <span class="toggle-icon" style="visibility: hidden;">◀</span>
+      }
+    </div>
+    <div class="tree-content" [class.expanded]="node.expanded" *ngIf="node.children?.length">
+      <ng-container *ngFor="let child of node.children">
+        <ng-container *ngTemplateOutlet="treeNodeTemplate; context: {$implicit: child}"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

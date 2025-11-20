@@ -40,6 +40,14 @@ export class OrgChartService extends BaseService{
           hasChildren: true,
           children: [],
           expanded: false
+        },
+        {
+          id: 2,
+          name: "مدیرکل حفاظت فناوری اطلاعات",
+          description: "",
+          hasChildren: false,
+          children: [],
+          expanded: false
         }
       ]);
     }

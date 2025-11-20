@@ -178,7 +178,7 @@
     background: rgba(58, 80, 107, 0.3);
 }
 
-.device-item.active {
+.active {
     background: rgba(91, 192, 190, 0.3);
     border-right: 3px solid #6FFFE9; /* swapped for RTL */
     border-left: none;

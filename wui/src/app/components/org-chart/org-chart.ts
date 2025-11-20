@@ -26,15 +26,35 @@ export class OrgChart implements OnInit {
     this.orgChartService.getChildren(0).subscribe((result) => this.dataSource = result);
   }
 
-  toggleNode(node: TreeNode): void {
-    if(node.hasChildren && node.children.length == 0) {
+  toggleNode(node: TreeNode, event?: Event): void {
+    event?.stopPropagation();
+    const hasLoadedChildren = !!node.children && node.children.length > 0;
+    if (node.hasChildren && !hasLoadedChildren) {
       this.orgChartService.getChildren(node.id).subscribe((result) => {
         node.children = result;
         node.expanded = true;
       });
-    } else {
+      return;
+    }
+    if (node.children?.length) {
       node.expanded = !node.expanded;
     }
+  }
+
+  selectNode(node: TreeNode, event?: Event): void {
+    event?.stopPropagation();
+    this.deactivateNodes(this.dataSource);
+    node.active = true;
+    console.log(node);
+  }
+
+  deactivateNodes(nodes: TreeNode[]): void {
+    nodes.forEach(node => {
+      node.active = false;
+      if (node.children) {
+        this.deactivateNodes(node.children);
+      }
+    });
   }
 }
 
