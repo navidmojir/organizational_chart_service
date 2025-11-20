@@ -1,55 +1,34 @@
-<div class="tree" dir="rtl">
-
-  <!-- NODE 1 -->
-  <div class="tree-node">
-    <input type="checkbox" id="n1">
-    <label for="n1" class="node-label">
-      <span class="icon">📁</span> بخش فروش
-    </label>
-
-    <div class="children">
-      <div class="tree-node">
-        <span class="leaf"><span class="icon">📄</span> گزارش هفتگی</span>
-      </div>
-
-      <div class="tree-node">
-        <span class="leaf"><span class="icon">📄</span> لیست مشتریان</span>
-      </div>
+<div class="container">
+  <div class="header">
+    <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search" placeholder="جستجو" id="search-input">
     </div>
+    <h1>درخت سازمانی</h1>
+    
   </div>
-
-  <!-- NODE 2 -->
-  <div class="tree-node">
-    <input type="checkbox" id="n2">
-    <label for="n2" class="node-label">
-      <span class="icon">📁</span> منابع انسانی
-    </label>
-
-    <div class="children">
-
-      <!-- NODE 2.1 -->
+  <div class="main">
+    <div class="tree-container">
       <div class="tree-node">
-        <span class="leaf"><span class="icon">📄</span> قراردادها</span>
-      </div>
-
-      <!-- NODE 2.2 (Expandable Child) -->
-      <div class="tree-node">
-        <input type="checkbox" id="n2-1">
-        <label for="n2-1" class="node-label">
-          <span class="icon">📁</span> لیست کارمندان
-        </label>
-
-        <div class="children">
+        <div class="tree-header expanded">
+          <span class="node-name">رئیس کل</span>
+          <span class="toggle-icon">◀</span>
+        </div>
+        <div class="tree-content">
           <div class="tree-node">
-            <span class="leaf"><span class="icon">👤</span> علی رضایی</span>
-          </div>
-          <div class="tree-node">
-            <span class="leaf"><span class="icon">👤</span> سارا محمدی</span>
-          </div>
+            <div class="tree-header expanded">
+                <span class="node-name">رئیس مرکز حراست</span>
+                <span class="toggle-icon">◀</span>
+            </div>
+            <div class="tree-content">
+              <div class="tree-node">
+                <div class="tree-header">
+                    <span class="node-name">مدیرکل حفاظت فناوری اطلاعات</span>
+                    <span class="toggle-icon">◀</span>
+                </div>
+            </div>
         </div>
       </div>
-
     </div>
-  </div>
-
+  </div> 
 </div>

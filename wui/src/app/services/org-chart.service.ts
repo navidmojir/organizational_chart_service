@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { TreeNode } from "../components/org-chart/org-chart";
 import { BaseService } from "my-angular-commons2";
+import { TreeNode } from "../models/tree-node";
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +18,29 @@ export class OrgChartService extends BaseService{
 //     return of([{name: "root1", expandable: true}, {name: "root2", expandable: false}]);
 //   }
 
-  getChildren(parentId: number) {
-    return this.get("/organizations/children/" + parentId);
-    // return of([{name: "sub2", expandable: false}]);
+  getChildren(parentId: number): Observable<TreeNode[]> {
+    // return this.get("/organizations/children/" + parentId);
+    if(parentId == 0) {
+      return of([
+        {
+          id: 1,
+          name: "رئیس کل",
+          description: "نود ریشه",
+          hasChildren: true,
+          children: []
+        }
+      ]);
+    } else {
+      return of([
+        {
+          id: 1,
+          name: "رئیس مرکز حراست",
+          description: "",
+          hasChildren: true,
+          children: []
+        }
+      ]);
+    }
   }
 
   

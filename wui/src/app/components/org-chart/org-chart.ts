@@ -1,29 +1,28 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {MatTreeModule} from '@angular/material/tree';
+import {Component, OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable, of } from 'rxjs';
 import { OrgChartService } from '../../services/org-chart.service';
+import { TreeNode } from '../../models/tree-node';
 
 
-export interface TreeNode {
-  id: string;  
-  name: string;
-  description?: string;
-  hasChildren: boolean;      
-}
+
 
 
 
 @Component({
   selector: 'app-org-chart',
   templateUrl: 'org-chart.html',
+  styleUrls: ['org-chart.css'],
   imports: [MatButtonModule, MatIconModule],
 })
-export class OrgChart {
+export class OrgChart implements OnInit {
 
+  dataSource: TreeNode[] = [];
   
+  constructor(private orgChartService: OrgChartService) {}
 
+  ngOnInit(): void {
+    this.orgChartService.getChildren(0).subscribe((result) => this.dataSource = result);
+  }
 }
 
