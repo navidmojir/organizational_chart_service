@@ -27,7 +27,8 @@ export class OrgChartService extends BaseService{
           name: "رئیس کل",
           description: "نود ریشه",
           hasChildren: true,
-          children: []
+          children: [],
+          expanded: false
         }
       ]);
     } else {
@@ -37,7 +38,8 @@ export class OrgChartService extends BaseService{
           name: "رئیس مرکز حراست",
           description: "",
           hasChildren: true,
-          children: []
+          children: [],
+          expanded: false
         }
       ]);
     }

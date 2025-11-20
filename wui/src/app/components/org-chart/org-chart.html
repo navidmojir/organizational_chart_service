@@ -4,31 +4,25 @@
         <span class="search-icon">🔍</span>
         <input type="text" class="search" placeholder="جستجو" id="search-input">
     </div>
-    <h1>درخت سازمانی</h1>
+    <h1>جایگاه های سازمانی</h1>
     
   </div>
   <div class="main">
     <div class="tree-container">
-      <div class="tree-node">
-        <div class="tree-header expanded">
-          <span class="node-name">رئیس کل</span>
+      <div class="tree-node" *ngFor="let node of dataSource">
+        <div class="tree-header" [class.expanded]="node.expanded" (click)="toggleNode(node)">
+          <span class="node-name">{{ node.name }}</span>
           <span class="toggle-icon">◀</span>
         </div>
-        <div class="tree-content">
-          <div class="tree-node">
-            <div class="tree-header expanded">
-                <span class="node-name">رئیس مرکز حراست</span>
-                <span class="toggle-icon">◀</span>
+        <div class="tree-content" *ngIf="node.children?.length">
+          <div class="tree-node" *ngFor="let child of node.children">
+            <div class="tree-header" [class.expanded]="child.expanded" (click)="toggleNode(child)">
+              <span class="node-name">{{ child.name }}</span>
+              <span class="toggle-icon">◀</span>
             </div>
-            <div class="tree-content">
-              <div class="tree-node">
-                <div class="tree-header">
-                    <span class="node-name">مدیرکل حفاظت فناوری اطلاعات</span>
-                    <span class="toggle-icon">◀</span>
-                </div>
-            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div> 
+    </div> 
+  </div>
 </div>

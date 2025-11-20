@@ -4,4 +4,6 @@ export interface TreeNode {
   description?: string;
   hasChildren: boolean;
   children: TreeNode[];
+  expanded: boolean;
+
 }
