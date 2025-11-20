@@ -18,13 +18,23 @@
 
 <ng-template #treeNodeTemplate let-node>
   <div class="tree-node">
-    <div class="tree-header" [class.expanded]="node.expanded" [class.active]="node.active" (click)="selectNode(node, $event)">
+    <div class="tree-header" [class.expanded]="node.expanded" [class.active]="node.active">
+      <button mat-icon-button aria-label="افزودن" class="action-btn">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="ویرایش" class="action-btn">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="حذف" class="action-btn">
+        <mat-icon>delete</mat-icon>
+      </button>
       <span class="node-name" (click)="selectNode(node, $event)">{{ node.name }}</span>
       @if(node.hasChildren) {
       <span class="toggle-icon" [class.expanded]="node.expanded" (click)="toggleNode(node, $event)">◀</span>
       } @else {
         <span class="toggle-icon" style="visibility: hidden;">◀</span>
       }
+      
     </div>
     <div class="tree-content" [class.expanded]="node.expanded" *ngIf="node.children?.length">
       <ng-container *ngFor="let child of node.children">
