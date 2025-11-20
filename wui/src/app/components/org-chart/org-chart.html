@@ -9,9 +9,18 @@
   </div>
   <div class="main">
     <div class="tree-container">
-      <ng-container *ngFor="let node of dataSource">
-        <ng-container *ngTemplateOutlet="treeNodeTemplate; context: {$implicit: node}"></ng-container>
-      </ng-container>
+      @if(dataSource.length === 0) {
+        <div style="text-align: center;">
+          <h3>هیچ جایگاهی ثبت نشده است</h3>
+          <button *ngIf="dataSource.length === 0" mat-raised-button color="primary" class="add-root-btn" aria-label="افزودن ریشه">
+            <mat-icon>add</mat-icon> افزودن ریشه
+          </button>
+        </div>
+      } @else {
+        <ng-container *ngFor="let node of dataSource">
+          <ng-container *ngTemplateOutlet="treeNodeTemplate; context: {$implicit: node}"></ng-container>
+        </ng-container>
+      }
     </div> 
   </div>
 </div>

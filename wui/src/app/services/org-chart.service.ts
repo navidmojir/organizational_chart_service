@@ -22,14 +22,14 @@ export class OrgChartService extends BaseService{
     // return this.get("/organizations/children/" + parentId);
     if(parentId == 0) {
       return of([
-        {
-          id: 1,
-          name: "رئیس کل",
-          description: "نود ریشه",
-          hasChildren: true,
-          children: [],
-          expanded: false
-        }
+        // {
+        //   id: 1,
+        //   name: "رئیس کل",
+        //   description: "نود ریشه",
+        //   hasChildren: true,
+        //   children: [],
+        //   expanded: false
+        // }
       ]);
     } else {
       return of([
