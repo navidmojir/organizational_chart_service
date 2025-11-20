@@ -1,5 +1,6 @@
 export interface TreeNode {
   id: number;
+  parentId: number;
   name: string;
   description?: string;
   hasChildren: boolean;

@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  direction: rtl;
+}
+
+.dialog-form {
+  min-width: 360px;
+}
+
+mat-dialog-content.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+  direction: rtl;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  direction: rtl;
+}
+
+:host ::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 16px;
+}
+

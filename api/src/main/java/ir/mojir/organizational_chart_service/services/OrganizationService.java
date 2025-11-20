@@ -74,10 +74,16 @@ public class OrganizationService {
     }
 
     public void delete(long id) {
+        List<Organization> childNodes = organizationRepo.findAllByParentId(id);
+        for(Organization childNode: childNodes) {
+            delete(childNode.getId());
+        }
         Organization organization = findById(id);
         organizationRepo.delete(organization);
         logger.info("Organization with id {} was deleted", id);
     }
+
+
 
     public Page<Organization> search(SearchDto<OrganizationSearchFilter> req) {
         logger.info(("Searching for organization"));

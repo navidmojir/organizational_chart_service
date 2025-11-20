@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { BaseService } from "my-angular-commons2";
 import { TreeNode } from "../models/tree-node";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class OrgChartService extends BaseService{
   constructor() {
     super();
     super.setResourceName('organizations');
-    super.setBaseUrl('http://localhost:8081');
+    super.setBaseUrl(environment.backendBaseUrl);
   }
 
 //   getRoots() {
@@ -18,23 +19,25 @@ export class OrgChartService extends BaseService{
 //     return of([{name: "root1", expandable: true}, {name: "root2", expandable: false}]);
 //   }
 
-  getChildren(parentId: number): Observable<TreeNode[]> {
-    // return this.get("/organizations/children/" + parentId);
-    if(parentId == 0) {
+  getChildren(parentId: number) {
+    return this.get("/organizations/children/" + parentId);
+    /*if(parentId == 0) {
       return of([
-        // {
-        //   id: 1,
-        //   name: "رئیس کل",
-        //   description: "نود ریشه",
-        //   hasChildren: true,
-        //   children: [],
-        //   expanded: false
-        // }
+        {
+          id: 1,
+          parentId: 0,
+          name: "رئیس کل",
+          description: "نود ریشه",
+          hasChildren: true,
+          children: [],
+          expanded: false
+        }
       ]);
     } else {
       return of([
         {
-          id: 1,
+          id: 2,
+          parentId: 1,
           name: "رئیس مرکز حراست",
           description: "",
           hasChildren: true,
@@ -42,7 +45,8 @@ export class OrgChartService extends BaseService{
           expanded: false
         },
         {
-          id: 2,
+          id: 3,
+          parentId: 1,
           name: "مدیرکل حفاظت فناوری اطلاعات",
           description: "",
           hasChildren: false,
@@ -50,7 +54,7 @@ export class OrgChartService extends BaseService{
           expanded: false
         }
       ]);
-    }
+    }*/
   }
 
   

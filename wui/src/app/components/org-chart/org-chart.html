@@ -1,9 +1,12 @@
 <div class="container">
   <div class="header">
-    <div class="search-container">
+    <button (click)="openNodeDialog(null, false)" mat-raised-button color="primary"  aria-label="افزودن ریشه">
+      <mat-icon>add</mat-icon> افزودن ریشه
+    </button>
+    <!-- <div class="search-container">
         <span class="search-icon">🔍</span>
         <input type="text" class="search" placeholder="جستجو" id="search-input">
-    </div>
+    </div> -->
     <h1>جایگاه های سازمانی</h1>
     
   </div>
@@ -12,9 +15,9 @@
       @if(dataSource.length === 0) {
         <div style="text-align: center;">
           <h3>هیچ جایگاهی ثبت نشده است</h3>
-          <button *ngIf="dataSource.length === 0" mat-raised-button color="primary" class="add-root-btn" aria-label="افزودن ریشه">
-            <mat-icon>add</mat-icon> افزودن ریشه
-          </button>
+          <!-- <button *ngIf="dataSource.length === 0" (click)="openNodeDialog(null, false)" mat-raised-button color="primary" class="add-root-btn" aria-label="افزودن ریشه">
+            <mat-icon>add</mat-icon> افزودن
+          </button> -->
         </div>
       } @else {
         <ng-container *ngFor="let node of dataSource">
@@ -28,13 +31,13 @@
 <ng-template #treeNodeTemplate let-node>
   <div class="tree-node">
     <div class="tree-header" [class.expanded]="node.expanded" [class.active]="node.active">
-      <button mat-icon-button aria-label="افزودن" class="action-btn">
+      <button mat-icon-button aria-label="افزودن" (click)="openNodeDialog(node, false)" class="action-btn">
         <mat-icon>add</mat-icon>
       </button>
-      <button mat-icon-button aria-label="ویرایش" class="action-btn">
+      <button mat-icon-button aria-label="ویرایش" (click)="openNodeDialog(node, true)" class="action-btn">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button aria-label="حذف" class="action-btn">
+      <button mat-icon-button aria-label="حذف" (click)="deleteNode(node)" class="action-btn">
         <mat-icon>delete</mat-icon>
       </button>
       <span class="node-name" (click)="selectNode(node, $event)">{{ node.name }}</span>
