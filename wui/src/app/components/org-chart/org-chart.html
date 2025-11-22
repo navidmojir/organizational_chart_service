@@ -40,6 +40,9 @@
       <button mat-icon-button aria-label="حذف" (click)="deleteNode(node)" class="action-btn">
         <mat-icon>delete</mat-icon>
       </button>
+      <button mat-icon-button aria-label="انتصاب کاربر" (click)="assignUser(node)" class="action-btn">
+        <mat-icon>account_circle</mat-icon>
+      </button>
       <span class="node-name" (click)="selectNode(node, $event)">{{ node.name }}</span>
       @if(node.hasChildren) {
       <span class="toggle-icon" [class.expanded]="node.expanded" (click)="toggleNode(node, $event)">◀</span>

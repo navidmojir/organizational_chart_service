@@ -105,4 +105,17 @@ public class OrganizationService {
             return true;
         return false;
     }
+
+    public void setOrganizationAssignedUser(long id, String userId) {
+        logger.info("Assgining user {} to organization {}", userId, id);
+        Organization organization = findById(id);
+        organization.setAssignedUserId(userId);
+        organizationRepo.save(organization);
+    }
+
+    public String getOrganizationAssignedUser(long id) {
+        logger.info("Getting assigned user of to organization {}", id);
+        Organization organization = findById(id);
+        return organization.getAssignedUserId();
+    }
 }

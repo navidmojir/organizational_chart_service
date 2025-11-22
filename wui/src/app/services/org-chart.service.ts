@@ -57,5 +57,13 @@ export class OrgChartService extends BaseService{
     }*/
   }
 
+  getAssignedUser(orgId: number) {
+    return this.get("/organizations/" + orgId + "/assignedUser");
+  }
+
+  setAssignedUser(orgId: number, userId: string) {
+    return this.get("/organizations/" + orgId + "/assignedUser/" + userId);
+  }
+
   
 }

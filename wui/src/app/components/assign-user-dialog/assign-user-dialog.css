@@ -1,0 +1,88 @@
+:host {
+  display: block;
+  direction: rtl;
+}
+
+.dialog-form {
+  min-width: 360px;
+}
+
+mat-dialog-content.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+  direction: rtl;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  direction: rtl;
+}
+
+:host ::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 16px;
+}
+
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* margin: 16px 0; */
+}
+.search-result-box {
+  display: flex;
+  align-items: center;
+  background: var(--mat-card-background, #f3f6fc);
+  border-radius: 12px;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.search-result-box:hover,
+.search-result-box:focus {
+  border-color: #0077ff;
+  box-shadow: 0 4px 18px 0 rgba(0, 119, 255, 0.08);
+  background: #e3f1ff;
+  outline: none;
+}
+.search-result-box.selected {
+  border-color: #388e3c;
+  background: #e8f5e9;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.user-avatar {
+  /* font-size: 36px; */
+  margin-left: 16px;
+  color: #90caf9;
+}
+.user-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.user-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+.user-username {
+  font-size: 0.95em;
+  color: #888;
+}
+.selected-icon {
+  color: #388e3c;
+  /* font-size: 32px; */
+}

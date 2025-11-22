@@ -13,6 +13,7 @@ public class Organization {
     @Lob
     private String description;
 
+    private String assignedUserId;
 
     private long parentId;
 
@@ -46,5 +47,13 @@ public class Organization {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAssignedUserId() {
+        return assignedUserId;
+    }
+
+    public void setAssignedUserId(String assignedUserId) {
+        this.assignedUserId = assignedUserId;
     }
 }

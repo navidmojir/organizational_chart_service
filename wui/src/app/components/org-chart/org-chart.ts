@@ -7,6 +7,7 @@ import { TreeNode } from '../../models/tree-node';
 import { NodeDialogComponent } from '../node-dialog/node-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'my-angular-commons2';
+import { AssignUserDialog } from '../assign-user-dialog/assign-user-dialog';
 
 
 
@@ -114,6 +115,15 @@ export class OrgChart implements OnInit {
         this.orgChartService.remove(node.id.toString()).subscribe(() => {
           this.removeNode(this.dataSource, node.id);
         });
+    })
+  }
+
+  assignUser(node: TreeNode) {
+    let dialogRef = this.dialog.open(AssignUserDialog);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) 
+        this.orgChartService.setAssignedUser(node.id, result.id).subscribe();
     })
   }
 

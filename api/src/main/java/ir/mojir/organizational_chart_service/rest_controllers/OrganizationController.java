@@ -84,4 +84,23 @@ public class OrganizationController {
 
     }
 
+    @PostMapping("/{id}/assignedUser/{userId}")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
+    public void setOrganizationAssignedUser(@PathVariable long id, @PathVariable String userId)
+    {
+        organizationService.setOrganizationAssignedUser(id, userId);
+    }
+
+    @GetMapping("/{id}/assignedUser")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
+    public GetAssignedUserResp getOrganizationAssignedUser(@PathVariable long id)
+    {
+        String userId = organizationService.getOrganizationAssignedUser(id);
+        GetAssignedUserResp result = new GetAssignedUserResp();
+        result.setUserId(userId);
+        return result;
+    }
+
+
+
 }

@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { AppInitializerService, KcConfigService, authInterceptor} from 'my-angular-commons2';
+import { AppInitializerService, KcConfigService, authInterceptor, spinnerInterceptor} from 'my-angular-commons2';
 import { environment } from '../environments/environment';
 
 function initializer() {
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor, spinnerInterceptor])),
     provideAppInitializer(initializer)
   ]
 };
