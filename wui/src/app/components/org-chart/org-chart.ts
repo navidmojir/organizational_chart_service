@@ -119,12 +119,19 @@ export class OrgChart implements OnInit {
   }
 
   assignUser(node: TreeNode) {
-    let dialogRef = this.dialog.open(AssignUserDialog);
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if(result) 
-        this.orgChartService.setAssignedUser(node.id, result.id).subscribe();
-    })
+    this.orgChartService.getAssignedUser(node.id).subscribe(
+      result => {
+        let dialogRef = this.dialog.open(AssignUserDialog, {data: {currentAssignedUser: result}});
+
+        dialogRef.afterClosed().subscribe((result) => {
+          if(result) 
+            this.orgChartService.setAssignedUser(node.id, result.id).subscribe();
+        })
+      }
+    )
+
+    
   }
 
   // Find and remove the node from the dataSource tree

@@ -2,29 +2,38 @@
   <h2 mat-dialog-title>انتصاب کاربر به جایگاه سازمانی</h2>
 
   <mat-dialog-content class="dialog-content">
+
+    @if(data.currentAssignedUser && data.currentAssignedUser.userId) {
+      <div class="search-result-box">کاربر فعلی: {{(data.currentAssignedUser.firstName ?? '') + ' ' + (data.currentAssignedUser.lastName ?? '') + ' (' + data.currentAssignedUser.username + ')'}}</div>
+    }
+
     <mat-form-field appearance="outline" (keyup)="search()">
       <mat-label>جستجوی کاربر</mat-label>
       <input matInput formControlName="username" required>
     </mat-form-field>
   
-  <div *ngIf="searchResult && searchResult.length > 0" class="search-results-list">
-    <div 
-      *ngFor="let user of searchResult | slice:0:5" 
-      class="search-result-box"
-      [class.selected]="selectedUser && selectedUser.id === user.id"
-      (click)="selectedUser = user"
-      tabindex="0"
-      (keydown.enter)="selectedUser = user"
-    >
-      <div class="user-info">
-        <mat-icon class="user-avatar">person</mat-icon>
-        <div class="user-details">
-          <div class="user-name">{{ user.username }}</div>
+    @if(searchResult && searchResult.length > 0) {
+      <div class="search-results-list">
+        <div 
+          *ngFor="let user of searchResult | slice:0:5" 
+          class="search-result-box"
+          [class.selected]="selectedUser && selectedUser.id === user.id"
+          (click)="selectedUser = user"
+          tabindex="0"
+          (keydown.enter)="selectedUser = user"
+        >
+          <div class="user-info">
+            <mat-icon class="user-avatar">person</mat-icon>
+            <div class="user-details">
+              <div class="user-name">{{ user.username }}</div>
+            </div>
+            <mat-icon *ngIf="selectedUser && selectedUser.id === user.id" color="primary" class="selected-icon">check_circle</mat-icon>
+          </div>
         </div>
-        <mat-icon *ngIf="selectedUser && selectedUser.id === user.id" color="primary" class="selected-icon">check_circle</mat-icon>
       </div>
-    </div>
-  </div>
+    } @else {
+      <div class="user-info">نتیجه ای یافت نشد</div>
+    }
 </mat-dialog-content>
 
   <mat-dialog-actions align="end">

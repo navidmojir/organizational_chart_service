@@ -1,6 +1,9 @@
 package ir.mojir.organizational_chart_service.services;
 
+import ir.mojir.my_kc_auth_client.dtos.KcUserDetails;
+import ir.mojir.my_kc_auth_client.external.KeycloakClient;
 import ir.mojir.organizational_chart_service.dtos.organization.CreateOrganizationReq;
+import ir.mojir.organizational_chart_service.dtos.organization.GetAssignedUserResp;
 import ir.mojir.organizational_chart_service.dtos.organization.UpdateOrganizationReq;
 import ir.mojir.organizational_chart_service.entities.Organization;
 import ir.mojir.organizational_chart_service.repositories.OrganizationRepo;
@@ -8,6 +11,7 @@ import ir.mojir.organizational_chart_service.repositories.OrganizationRepoCustom
 import ir.mojir.organizational_chart_service.dtos.organization.OrganizationSearchFilter;
 import ir.mojir.spring_boot_commons.dtos.SearchDto;
 import ir.mojir.spring_boot_commons.exceptions.EntityNotFoundException;
+import ir.mojir.spring_boot_commons.helpers.Validations;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +33,8 @@ public class OrganizationService {
     @Autowired
     private OrganizationRepoCustom organizationRepoCustom;
 
+    @Autowired
+    private KeycloakClient keycloakClient;
 
     @Transactional
     public Organization create(CreateOrganizationReq req)
@@ -113,9 +119,17 @@ public class OrganizationService {
         organizationRepo.save(organization);
     }
 
-    public String getOrganizationAssignedUser(long id) {
+    public GetAssignedUserResp getOrganizationAssignedUser(long id) {
         logger.info("Getting assigned user of to organization {}", id);
         Organization organization = findById(id);
-        return organization.getAssignedUserId();
+        GetAssignedUserResp result = new GetAssignedUserResp();
+        result.setUserId(organization.getAssignedUserId());
+        if(!Validations.isBlank(organization.getAssignedUserId())) {
+            KcUserDetails userDetails = keycloakClient.getUserDetails(organization.getAssignedUserId());
+            result.setFirstName(userDetails.getFirstName());
+            result.setLastName(userDetails.getLastName());
+            result.setUsername(userDetails.getUsername());
+        }
+        return result;
     }
 }

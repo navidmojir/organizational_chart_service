@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -8,6 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { NodeDialogComponent, NodeDialogData } from '../node-dialog/node-dialog.component';
 import { UserService } from '../../services/user.service';
 import { MatIconModule } from '@angular/material/icon';
+
+export interface AssignUserDialogData {
+  currentAssignedUser? :any;
+}
 
 @Component({
   selector: 'app-assign-user-dialog',
@@ -34,8 +38,8 @@ export class AssignUserDialog {
   constructor(
     private dialogRef: MatDialogRef<NodeDialogComponent>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: NodeDialogData,
-    private userService: UserService
+    @Inject(MAT_DIALOG_DATA) public data: AssignUserDialogData,
+    private userService: UserService,
   ) {
     this.form = this.fb.group({
       username: []

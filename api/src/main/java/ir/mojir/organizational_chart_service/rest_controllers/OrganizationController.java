@@ -95,10 +95,7 @@ public class OrganizationController {
     @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
     public GetAssignedUserResp getOrganizationAssignedUser(@PathVariable long id)
     {
-        String userId = organizationService.getOrganizationAssignedUser(id);
-        GetAssignedUserResp result = new GetAssignedUserResp();
-        result.setUserId(userId);
-        return result;
+        return organizationService.getOrganizationAssignedUser(id);
     }
 
 
