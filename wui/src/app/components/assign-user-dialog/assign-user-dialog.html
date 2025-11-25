@@ -4,7 +4,17 @@
   <mat-dialog-content class="dialog-content">
 
     @if(data.currentAssignedUser && data.currentAssignedUser.userId) {
-      <div class="search-result-box">کاربر فعلی: {{(data.currentAssignedUser.firstName ?? '') + ' ' + (data.currentAssignedUser.lastName ?? '') + ' (' + data.currentAssignedUser.username + ')'}}</div>
+      <div class="search-result-box">
+        <div class="user-info">
+            <mat-icon class="user-avatar">person</mat-icon>
+            <div class="user-details">
+              <div class="user-name">کاربر فعلی: {{(data.currentAssignedUser.firstName ?? '') + ' ' + (data.currentAssignedUser.lastName ?? '') + ' (' + data.currentAssignedUser.username + ')'}}</div>
+            </div>
+            <button matIconButton matTooltip="حذف انتصاب" (click)="unassignUser()"><mat-icon color="primary" >eject</mat-icon></button>
+            
+          </div>
+      </div>
+      
     }
 
     <mat-form-field appearance="outline" (keyup)="search()">

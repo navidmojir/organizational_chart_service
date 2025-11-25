@@ -122,7 +122,7 @@ export class OrgChart implements OnInit {
 
     this.orgChartService.getAssignedUser(node.id).subscribe(
       result => {
-        let dialogRef = this.dialog.open(AssignUserDialog, {data: {currentAssignedUser: result}});
+        let dialogRef = this.dialog.open(AssignUserDialog, {data: {currentAssignedUser: result, selectedOrganization: node}});
 
         dialogRef.afterClosed().subscribe((result) => {
           if(result) 
