@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,14 +97,12 @@ public class OrganizationService {
         return organizationRepoCustom.search(req);
     }
 
-    public List<Organization> getOrganizations(long parentId) {
+    public List<Organization> getChildren(long parentId) {
         logger.info("Getting root organizations");
         return organizationRepo.findAllByParentId(parentId);
     }
 
-    public List<Organization> getChildren(long id) {
-        return organizationRepo.findAllByParentId(id);
-    }
+
 
     public boolean hasChildren(long id) {
         List<Organization> children = getChildren(id);
@@ -129,6 +128,26 @@ public class OrganizationService {
             result.setFirstName(userDetails.getFirstName());
             result.setLastName(userDetails.getLastName());
             result.setUsername(userDetails.getUsername());
+        }
+        return result;
+    }
+
+    public void unassignOrganizationAssignedUser(long id, String userId) {
+        logger.info("Unassigning user {} from organization {}", userId, id);
+        Organization organization = findById(id);
+        organization.setAssignedUserId(null);
+        organizationRepo.save(organization);
+    }
+
+    public List<Organization> getAncestors(long id) {
+        Organization organization = findById(id);
+        List<Organization> result = new ArrayList<>();
+        result.add(organization);
+        long parentId = organization.getParentId();
+        while(parentId != 0) {
+            Organization parentOrg = findById(parentId);
+            result.add(parentOrg);
+            parentId = parentOrg.getParentId();
         }
         return result;
     }

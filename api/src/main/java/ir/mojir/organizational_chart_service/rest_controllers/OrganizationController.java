@@ -73,15 +73,24 @@ public class OrganizationController {
                         .collect(Collectors.toList()));
     }
 
-    @GetMapping("/children/{parentId}")
-    public List<ListRootOrganizationRespRow> getChildren(@PathVariable long parentId) {
-        List<Organization> rootOrgs = organizationService.getOrganizations(parentId);
-        return rootOrgs.stream().map((org) -> {
-            ListRootOrganizationRespRow row = mapper.map(org, ListRootOrganizationRespRow.class);
+    @GetMapping("/{id}/children")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
+    public List<GetOrganizationChildrenRespRow> getChildren(@PathVariable long id) {
+        List<Organization> children = organizationService.getChildren(id);
+        return children.stream().map((org) -> {
+            GetOrganizationChildrenRespRow row = mapper.map(org, GetOrganizationChildrenRespRow.class);
             row.setHasChildren(organizationService.hasChildren(org.getId()));
             return row;
         }).collect(Collectors.toList());
 
+    }
+
+    @GetMapping("/{id}/ancestors")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
+    public List<GetOrganizationAncestorsRespRow> getAncestors(@PathVariable long id) {
+        List<Organization> ancestors = organizationService.getAncestors(id);
+        return ancestors.stream().map((org ->  mapper.map(org, GetOrganizationAncestorsRespRow.class)))
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/{id}/assignedUser/{userId}")
@@ -89,6 +98,13 @@ public class OrganizationController {
     public void setOrganizationAssignedUser(@PathVariable long id, @PathVariable String userId)
     {
         organizationService.setOrganizationAssignedUser(id, userId);
+    }
+
+    @PostMapping("/{id}/assignedUser/{userId}/unassign")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
+    public void unassignOrganizationAssignedUser(@PathVariable long id, @PathVariable String userId)
+    {
+        organizationService.unassignOrganizationAssignedUser(id, userId);
     }
 
     @GetMapping("/{id}/assignedUser")

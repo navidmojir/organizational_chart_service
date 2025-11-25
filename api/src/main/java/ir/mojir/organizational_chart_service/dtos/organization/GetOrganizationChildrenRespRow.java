@@ -1,6 +1,6 @@
 package ir.mojir.organizational_chart_service.dtos.organization;
 
-public class ListRootOrganizationRespRow {
+public class GetOrganizationChildrenRespRow {
     private long id;
     private String name;
     private String description;

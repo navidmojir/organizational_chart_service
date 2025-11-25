@@ -20,7 +20,7 @@ export class OrgChartService extends BaseService{
 //   }
 
   getChildren(parentId: number) {
-    return this.get("/organizations/children/" + parentId);
+    return this.get("/organizations/" + parentId + "/children");
     /*if(parentId == 0) {
       return of([
         {
