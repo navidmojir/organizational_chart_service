@@ -1,9 +1,9 @@
 export const environment = {
         keycloak: {
-            url: "http://localhost:8080",
+            url: "KEYCLOAK_URL",
             realm: "cbi",
             clientId: "ocs-wui",
             resourceServersClientIds: ["ocs-api"]
         },
-        backendBaseUrl: "http://localhost:8082"
+        backendBaseUrl: "BACKEND_URL"
     };

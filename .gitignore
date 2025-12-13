@@ -1,1 +1,3 @@
 /.idea
+api/data.mv.db
+api/keycloak-client-info.json

@@ -1,0 +1,12 @@
+#first build project using command: ng build --configuration=production (so /dist/wui will be created)
+#docker build -t ocs-wui:0.0.1-SNAPSHOT .
+
+FROM nginx:alpine
+RUN apk add --no-cache openssl
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+COPY /dist/wui/browser/ /usr/share/nginx/html
+ENTRYPOINT ["/entrypoint.sh"]
+
+
