@@ -1,7 +1,7 @@
 export const environment = {
         keycloak: {
             url: "KEYCLOAK_URL",
-            realm: "cbi",
+            realm: "sts",
             clientId: "ocs-wui",
             resourceServersClientIds: ["ocs-api"]
         },
