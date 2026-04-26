@@ -13,7 +13,7 @@ import java.util.Arrays;
 @Configuration
 public class CorsConfig implements CorsConfigurationSource {
 
-    @Value("${cors.allowed-origins:http://localhost:4200}")
+    @Value("${cors.allowed-origins:http://localhost:4201}")
     private String[] allowedOrigins;
 
     @Value("${cors.allowed-methods:GET, PUT, POST, DELETE, OPTIONS}")

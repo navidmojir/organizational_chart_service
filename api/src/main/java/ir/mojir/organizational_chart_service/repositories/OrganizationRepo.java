@@ -9,4 +9,5 @@ import java.util.List;
 public interface OrganizationRepo extends CrudRepository<Organization, Long>,
         JpaSpecificationExecutor<Organization> {
     List<Organization> findAllByParentId(long parentId);
+    List<Organization> findAllByAssignedUserId(String assignedUserId);
 }

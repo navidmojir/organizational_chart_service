@@ -151,4 +151,22 @@ public class OrganizationService {
         }
         return result;
     }
+
+    public List<String> getOrganizationsAssignedToUser(String userId) {
+        List<String> result = new ArrayList<>();
+        List<Organization> organizations = organizationRepo.findAllByAssignedUserId(userId);
+        for(Organization organization: organizations) {
+            //building materialized path for organization. example: /1/2/3
+            StringBuilder sb = new StringBuilder();
+            List<Organization> pathOrgs = getAncestors(organization.getId());
+            sb.append("/");
+            for(int i = 0; i < pathOrgs.size(); i++) {
+                sb.append(pathOrgs.get(pathOrgs.size() - i - 1).getId());
+                if(i < pathOrgs.size() - 1)
+                    sb.append("/");
+            }
+            result.add(sb.toString());
+        }
+        return result;
+    }
 }
