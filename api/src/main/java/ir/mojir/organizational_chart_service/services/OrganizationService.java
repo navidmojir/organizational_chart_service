@@ -5,6 +5,7 @@ import ir.mojir.my_kc_auth_client.external.KeycloakClient;
 import ir.mojir.organizational_chart_service.dtos.organization.CreateOrganizationReq;
 import ir.mojir.organizational_chart_service.dtos.organization.GetAssignedUserResp;
 import ir.mojir.organizational_chart_service.dtos.organization.UpdateOrganizationReq;
+import ir.mojir.organizational_chart_service.dtos.user.GetOrganizationsAssignedToUserResp;
 import ir.mojir.organizational_chart_service.entities.Organization;
 import ir.mojir.organizational_chart_service.repositories.OrganizationRepo;
 import ir.mojir.organizational_chart_service.repositories.OrganizationRepoCustom;
@@ -152,8 +153,8 @@ public class OrganizationService {
         return result;
     }
 
-    public List<String> getOrganizationsAssignedToUser(String userId) {
-        List<String> result = new ArrayList<>();
+    public List<GetOrganizationsAssignedToUserResp> getOrganizationsAssignedToUser(String userId) {
+        List<GetOrganizationsAssignedToUserResp> result = new ArrayList<>();
         List<Organization> organizations = organizationRepo.findAllByAssignedUserId(userId);
         for(Organization organization: organizations) {
             //building materialized path for organization. example: /1/2/3
@@ -165,7 +166,11 @@ public class OrganizationService {
                 if(i < pathOrgs.size() - 1)
                     sb.append("/");
             }
-            result.add(sb.toString());
+            GetOrganizationsAssignedToUserResp obj = new GetOrganizationsAssignedToUserResp();
+            obj.setId(organization.getId());
+            obj.setPath(sb.toString());
+            obj.setName(organization.getName());
+            result.add(obj);
         }
         return result;
     }

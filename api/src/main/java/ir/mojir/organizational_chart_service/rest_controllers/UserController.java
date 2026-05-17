@@ -4,13 +4,14 @@ import ir.mojir.my_kc_auth_client.annotations.AllowedRoles;
 import ir.mojir.my_kc_auth_client.config.KeycloakConfiguration;
 import ir.mojir.my_kc_auth_client.dtos.KcSearchUserRespRow;
 import ir.mojir.my_kc_auth_client.external.KeycloakClient;
+import ir.mojir.organizational_chart_service.dtos.user.GetOrganizationsAssignedToUserResp;
 import ir.mojir.organizational_chart_service.dtos.user.SearchUserRespRow;
 import ir.mojir.organizational_chart_service.enums.UserRole;
 import ir.mojir.organizational_chart_service.services.OrganizationService;
+import ir.mojir.spring_boot_commons.interfaces.CurrentUserProvider;
 import jakarta.websocket.server.PathParam;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,9 @@ public class UserController {
     @Autowired
     private OrganizationService organizationService;
 
+    @Autowired
+    private CurrentUserProvider currentUserProvider;
+
     @GetMapping
     @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
     public SearchUserRespRow[] searchUsers(@PathParam("search") String search) {
@@ -44,7 +48,13 @@ public class UserController {
 
     @GetMapping("/{id}/organizations")
     @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
-    public List<String> getOrganizationsAssignedToUser(@PathVariable String id) {
+    public List<GetOrganizationsAssignedToUserResp> getOrganizationsAssignedToUser(@PathVariable String id) {
         return organizationService.getOrganizationsAssignedToUser(id);
+    }
+
+    @GetMapping("/me/organizations")
+    @AllowedRoles(roles = {UserRole.ADMIN_ROLE})
+    public List<GetOrganizationsAssignedToUserResp> getOrganizationsAssignedToMe() {
+        return organizationService.getOrganizationsAssignedToUser(currentUserProvider.getCurrentUserId());
     }
 }

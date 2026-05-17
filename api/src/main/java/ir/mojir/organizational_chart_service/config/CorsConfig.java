@@ -13,13 +13,13 @@ import java.util.Arrays;
 @Configuration
 public class CorsConfig implements CorsConfigurationSource {
 
-    @Value("${cors.allowed-origins:http://localhost:4201}")
+    @Value("${cors.allowed-origins:http://localhost:4201, http://localhost:4200}")
     private String[] allowedOrigins;
 
     @Value("${cors.allowed-methods:GET, PUT, POST, DELETE, OPTIONS}")
     private String[] allowedMethods;
 
-    @Value("${cors.allowed-headers:X-TOTAL-COUNT, X-File-Name, authorization, Content-Type}")
+    @Value("${cors.allowed-headers:X-TOTAL-COUNT, X-File-Name, authorization, Content-Type, x-current-organization-id}")
     private String[] allowedHeaders;
 
     @Value("${cors.exposed-headers:X-TOTAL-COUNT, X-File-Name}")
